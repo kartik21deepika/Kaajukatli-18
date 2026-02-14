@@ -101,7 +101,7 @@
         <div id="revisitBtn" onclick="location.reload()">📷</div>
     </div>
 
-    <audio id="quizMusic" loop autoplay><source src="quiz_tune.m4a" type="audio/mpeg"></audio>
+    <audio id="quizMusic" loop autoplay><source src="Quiz.m4a" type="audio/mpeg"></audio>
 <audio id="slideshowMusic" loop><source src="perfect.mp3" type="audio/mpeg"></audio>
 <audio id="funnyMusic" loop><source src="funny_tune.mp3" type="audio/mpeg"></audio>
 <audio id="mainMusic" loop><source src="main_celebration.mp3" type="audio/mpeg"></audio>
@@ -137,9 +137,30 @@
     };
 
     let currentSectionId = 0, currentIndex = 0;
-    // Track what has been seen to prevent loops
     let visited = { 1: false, 2: false, 3: false };
 
+    // --- MUSIC LOGIC ---
+    function playTrack(trackId) {
+        const tracks = ['quizMusic', 'slideshowMusic', 'funnyMusic', 'mainMusic'];
+        tracks.forEach(id => {
+            let t = document.getElementById(id);
+            if (t) { 
+                t.pause(); 
+                t.currentTime = 0; 
+            }
+        });
+        const activeTrack = document.getElementById(trackId);
+        if(activeTrack) {
+            activeTrack.play().catch(error => {
+                console.log("Autoplay prevented. Music will start after first click.");
+            });
+        }
+    }
+
+    // Start Quiz Music immediately
+    window.onload = () => playTrack('quizMusic');
+
+    // --- NAVIGATION LOGIC ---
     function checkCipher() {
         if(document.getElementById('cipherInput').value.trim().toUpperCase() === "KARTIK") {
             document.getElementById('welcomeScreen').style.opacity = "0";
@@ -148,7 +169,8 @@
                 const success = document.getElementById('successScreen');
                 success.classList.remove('hidden');
                 setTimeout(() => success.style.opacity = "1", 50);
-                document.getElementById('bgMusic').play();
+                
+                // Note: 'bgMusic' was missing in your audio tags, quiz music continues here
                 setTimeout(() => {
                     success.style.opacity = "0";
                     setTimeout(() => {
@@ -169,10 +191,15 @@
 
     function startSection(id) {
         currentSectionId = id; currentIndex = 0; 
-        visited[id] = true; // Mark as seen
+        visited[id] = true;
         document.getElementById('categoryMenu').classList.add('hidden');
         document.getElementById('navPopup').classList.add('hidden');
         document.getElementById('slideshowContainer').classList.remove('hidden');
+        
+        // Music Switch
+        if(id === 2) playTrack('funnyMusic');
+        else playTrack('slideshowMusic');
+        
         updateSlide();
     }
 
@@ -197,7 +224,6 @@
         options.innerHTML = "";
         popup.classList.remove('hidden');
 
-        // Logic: Only show buttons for sections she HASN'T seen yet
         if (!visited[1]) addOption("✨ The Goddess Era", () => startSection(1));
         if (!visited[2]) addOption("😜 Little Miss Dramebaaz", () => {
             popup.classList.add('hidden');
@@ -206,7 +232,6 @@
         });
         if (!visited[3]) addOption("👩‍❤️‍👨 The Soulmate Saga", () => startSection(3));
         
-        // Always allow proceeding to the main celebration
         addOption("🚀 Launch Into Chapter 18", launchHome);
     }
 
@@ -218,12 +243,13 @@
 
     function launchHome() {
         document.getElementById('navPopup').classList.add('hidden');
+        playTrack('mainMusic');
         const main = document.getElementById('mainContent');
         main.style.display = "block";
         setTimeout(() => { main.style.opacity = "1"; typeWriter(); }, 50);
     }
 
-    // Countdown and Typing logic remains the same...
+    // --- COUNTDOWN & TYPING ---
     const bdayDate = new Date("February 16, 2026 00:00:00").getTime();
     setInterval(() => {
         const d = bdayDate - new Date().getTime();
@@ -236,46 +262,8 @@
         if (charIndex < typingText.length) {
             document.getElementById("typing").innerHTML += typingText.charAt(charIndex);
             charIndex++; setTimeout(typeWriter, 50);
-
-            function playTrack(trackId) {
-    const tracks = ['quizMusic', 'slideshowMusic', 'funnyMusic', 'mainMusic'];
-    tracks.forEach(id => {
-        let t = document.getElementById(id);
-        if (t) { 
-            t.pause(); 
-            t.currentTime = 0; 
-        }
-    });
-    document.getElementById(trackId).play();
-}
-
-// 1. Start Quiz Music on load
-window.onload = () => playTrack('quizMusic');
-
-// 2. Change to Slideshow Music
-function startSection(id) {
-    currentSectionId = id; currentIndex = 0; visited[id] = true;
-    document.getElementById('categoryMenu').classList.add('hidden');
-    document.getElementById('navPopup').classList.add('hidden');
-    document.getElementById('slideshowContainer').classList.remove('hidden');
-    
-    // Play funny music for section 2, otherwise play romantic music
-    if(id === 2) playTrack('funnyMusic');
-    else playTrack('slideshowMusic');
-    
-    updateSlide();
-}
-
-// 3. Change to Main Page Music
-function launchHome() {
-    document.getElementById('navPopup').classList.add('hidden');
-    playTrack('mainMusic');
-    const main = document.getElementById('mainContent');
-    main.style.display = "block";
-    setTimeout(() => { main.style.opacity = "1"; typeWriter(); }, 50);
-}
         }
     }
-</script>
+        </script>
 </body>
     </html>
