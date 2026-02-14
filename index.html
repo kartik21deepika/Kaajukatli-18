@@ -6,51 +6,43 @@
     <title>Chapter 18 – Deepika ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff4e50; --accent: #ffd700; }
-        body { margin: 0; padding: 0; min-height: 100vh; font-family: 'Poppins', sans-serif; text-align: center; color: white; overflow: hidden; background: #1a0a1a; transition: background 2s; }
+        :root { --accent: #ffd700; --primary: #ff4e50; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; background: #0a0a0a; color: white; }
         .hidden { display: none !important; }
-        .full-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; padding: 20px; box-sizing: border-box; }
+        .full-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; text-align: center; padding: 20px; box-sizing: border-box; }
 
-        /* Backgrounds */
-        .bg-dark { background: linear-gradient(135deg, #1a0a1a, #2d0b2e); }
-        .bg-romantic { background: linear-gradient(135deg, #ff9a9e, #fad0c4); color: #4a144d; }
-        #heart-particles { position: fixed; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 1; opacity: 0; transition: 2s; }
+        /* Background Effects */
+        canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1; }
+        .bg-main { background: radial-gradient(circle at center, #1a0a2e 0%, #050505 100%); }
 
         /* Typography */
-        .glow-title { font-family: 'Playfair Display'; font-size: 3.5rem; color: var(--accent); text-shadow: 0 0 15px rgba(255,215,0,0.6); margin-bottom: 20px; }
-        .handwritten { font-family: 'Caveat'; font-size: 1.8rem; }
+        .glow-title { font-family: 'Playfair Display'; font-size: 3rem; color: var(--accent); text-shadow: 0 0 20px rgba(255,215,0,0.5); }
+        .handwritten { font-family: 'Caveat'; font-size: 1.6rem; line-height: 1.3; }
 
         /* Buttons & Inputs */
-        .btn { background: white; color: #4a144d; border: none; padding: 15px 35px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); margin: 10px; font-family: 'Poppins'; }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent); }
-        input { padding: 12px; border-radius: 10px; border: 2px solid var(--accent); text-align: center; width: 250px; margin: 10px; outline: none; }
-
-        /* Firecrackers */
-        #fireworks-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
-
-        /* 3D Balloons */
-        .balloon { position: absolute; bottom: -100px; width: 50px; height: 70px; border-radius: 50%; animation: floatUp 10s linear infinite; opacity: 0.8; z-index: 2; }
-        @keyframes floatUp { to { transform: translateY(-120vh) translateX(50px); } }
+        .btn { background: white; color: #1a0a2e; border: none; padding: 12px 25px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; z-index: 2000; margin: 10px; }
+        .btn:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--accent); }
+        input { padding: 12px; border-radius: 10px; border: 2px solid var(--accent); text-align: center; background: rgba(255,255,255,0.9); color: #000; font-weight: bold; }
 
         /* Slideshow */
-        .slide-img { max-width: 85%; max-height: 55vh; border-radius: 20px; border: 8px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .caption { font-family: 'Caveat'; font-size: 2rem; color: var(--accent); margin-top: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .slide-img { max-width: 85%; max-height: 50vh; border-radius: 15px; border: 5px solid white; box-shadow: 0 0 25px rgba(255,255,255,0.2); }
 
-        /* Interaction Icons */
-        .icon-hub { display: flex; justify-content: center; gap: 40px; margin-top: 30px; z-index: 10; position: relative; }
-        .icon-box { cursor: pointer; transition: 0.3s; }
-        .icon-box:hover { transform: translateY(-10px); }
-        .icon-symbol { font-size: 4rem; display: block; filter: drop-shadow(0 0 10px gold); }
+        /* Floating Corner Icons */
+        .floating-icon { position: fixed; width: 80px; height: 80px; cursor: pointer; z-index: 3000; transition: all 2s ease-in-out; }
+        .icon-symbol { font-size: 2.5rem; display: block; filter: drop-shadow(0 0 10px gold); }
 
-        /* Overlays */
-        #contentOverlay { background: rgba(0,0,0,0.95); z-index: 5000; }
-        .content-card { background: white; color: #333; padding: 40px; border-radius: 20px; width: 85%; max-width: 600px; max-height: 80vh; overflow-y: auto; text-align: left; }
+        /* Poem Container */
+        .poem-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; border: 1px solid var(--accent); max-width: 500px; width: 90%; position: relative; }
+
+        /* Final Reveal Styles */
+        .proposal-card { background: rgba(0,0,0,0.8); border: 2px solid var(--primary); padding: 40px; border-radius: 30px; }
+        .final-msg { font-size: 3rem; color: var(--primary); animation: heartBeat 1.5s infinite; }
+        @keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
     </style>
 </head>
-<body class="bg-dark">
+<body class="bg-main">
 
-    <canvas id="fireworks-canvas"></canvas>
-    <div id="heart-particles"></div>
+    <canvas id="starCanvas"></canvas>
 
     <audio id="quizMusic" loop><source src="quiz.m4a" type="audio/mpeg"></audio>
     <audio id="memoriesMusic" loop><source src="memories.m4a" type="audio/mpeg"></audio>
@@ -63,200 +55,193 @@
 
     <div id="loungeStage" class="full-screen hidden">
         <h1 class="glow-title">Wait for the Magic...</h1>
-        <div id="timer" style="font-size: 4rem; font-weight: bold; color: var(--accent);">00:00:00</div>
+        <div id="timer" style="font-size: 4rem; color: var(--accent);">00:00:05</div>
         <p id="patienceMsg" style="height: 20px; color: #ff85a2;"></p>
         <button class="btn" onclick="checkPatience()">Verify & Enter 🔓</button>
     </div>
 
     <div id="cipherStage" class="full-screen hidden">
-        <div style="background: rgba(0,0,0,0.6); padding: 40px; border-radius: 30px; border: 2px solid var(--accent); backdrop-filter: blur(10px);">
-            <h2 class="glow-title" style="font-size: 2rem;">🔓 The Cipher</h2>
-            <p style="letter-spacing: 3px; border: 1px dashed white; padding: 20px; font-weight: bold;">
-                23-8-15 &nbsp; 9-19 &nbsp; 25-15-21-18 <br> 19-15-21-12-13-1-20-5 ?
-            </p>
-            <input type="text" id="cipherInput" placeholder="ANSWER IN CAPS...">
-            <br><button class="btn" onclick="verifyCipher()">Unlock 💖</button>
+        <div style="background: rgba(0,0,0,0.6); padding: 30px; border-radius: 20px; border: 1px solid var(--accent);">
+            <h2 class="glow-title" style="font-size: 1.8rem;">🔓 The Cipher</h2>
+            <p style="letter-spacing: 3px; border: 1px dashed white; padding: 15px;">23-8-15 &nbsp; 9-19 &nbsp; 25-15-21-18 <br> 19-15-21-12-13-1-20-5 ?</p>
+            <p style="font-size: 0.8rem; color: #ccc;"><i>(HINT: Answer in CAPITAL & No AI for you, Deepika! 😉)</i></p>
+            <input type="text" id="cipherInput" placeholder="DECODE HERE...">
+            <br><button class="btn" onclick="verifyCipher()">Verify ✨</button>
         </div>
     </div>
 
-    <div id="successStage" class="full-screen hidden">
-        <h1 class="glow-title" style="font-size: 4rem;">Correct! ✅</h1>
-        <p class="handwritten">Welcome to your 18th Chapter, My Love.</p>
-    </div>
-
     <div id="menuStage" class="full-screen hidden">
-        <h2 class="glow-title">Select a Memory Path</h2>
-        <button class="btn" onclick="startSlideshow(1)">✨ Classic Beauty</button>
+        <h2 class="glow-title">Memory Path</h2>
+        <button class="btn" onclick="startPhotos(1)">✨ Classic Beauty</button>
         <button class="btn" onclick="showLock()">😜 Little Miss Dramebaaz</button>
-        <button class="btn" onclick="startSlideshow(3)">👩‍❤️‍👨 Soulmate Saga</button>
-        
+        <button class="btn" onclick="startPhotos(3)">👩‍❤️‍👨 Soulmate Saga</button>
         <div id="passLock" class="hidden">
-            <input type="password" id="secretPass" placeholder="Enter Secret Code...">
-            <br><button class="btn" onclick="verifySecret()">Unlock Folder 🔓</button>
+            <input type="password" id="secretPass" placeholder="Secret Code...">
+            <br><button class="btn" onclick="verifySecret()">Unlock 🔓</button>
         </div>
     </div>
 
     <div id="slideshowStage" class="full-screen hidden" style="background: black;">
         <img id="slideImg" class="slide-img" src="">
-        <div id="caption" class="caption"></div>
+        <div id="caption" class="caption handwritten" style="color: var(--accent); margin-top:20px;"></div>
         <button class="btn" onclick="nextPhoto()">Next Memory ➔</button>
     </div>
 
     <div id="mainPage" class="full-screen hidden">
-        <h1 class="glow-title" id="mainTitle">MY LOVE TURNS 18</h1>
-        
-        <div class="icon-hub">
-            <div class="icon-box" onclick="showOverlay('poems')">
-                <span class="icon-symbol">📜</span>
-                <span style="font-weight: bold;">Verses For You</span>
-            </div>
-            <div class="icon-box" onclick="showOverlay('letter')">
-                <span class="icon-symbol">💌</span>
-                <span style="font-weight: bold;">My Heart</span>
-            </div>
-        </div>
+        <h1 class="glow-title">MY LOVE TURNS 18</h1>
+        <div id="iconVerses" class="floating-icon" onclick="openPoemFlow()"><span class="icon-symbol">📜</span><small>Verses</small></div>
+        <div id="iconLetter" class="floating-icon" onclick="openLetter()"><span class="icon-symbol">💌</span><small>Letter</small></div>
+        <button id="proposalTrigger" class="btn hidden" onclick="startProposal()" style="margin-top: 50px; background: var(--primary); color: white;">A Question for You... 💍</button>
+    </div>
 
-        <div id="customMsg" style="margin-top: 40px; font-style: italic; opacity: 0.8;">
-            (Space for your final message later)
+    <div id="poemOverlay" class="full-screen hidden" style="background: rgba(0,0,0,0.95);">
+        <div id="poemContent" class="poem-box handwritten"></div>
+        <button class="btn" id="nextPoemBtn" onclick="nextPoem()">Next Poem ✨</button>
+    </div>
+
+    <div id="letterOverlay" class="full-screen hidden" style="background: rgba(0,0,0,0.95);">
+        <div class="poem-box handwritten" style="background: #fdf5e6; color: #333; text-align: left;">
+            <p>[PASTE YOUR PERSONAL LETTER HERE]</p>
+        </div>
+        <button class="btn" onclick="closeLetter()">Close Letter</button>
+    </div>
+
+    <div id="propStage1" class="full-screen hidden">
+        <div class="proposal-card">
+            <h2>Deepika, how many future years do you want to be with me?</h2>
+            <button class="btn" onclick="nextPropStage()">♾️</button>
+            <button class="btn" onclick="nextPropStage()">Infinite</button>
         </div>
     </div>
 
-    <div id="contentOverlay" class="full-screen hidden" onclick="hideOverlay()">
-        <div class="content-card" onclick="event.stopPropagation()">
-            <div id="overlayBody"></div>
-            <center><button class="btn" onclick="hideOverlay()" style="background: var(--primary); color: white;">Close</button></center>
+    <div id="propStage2" class="full-screen hidden">
+        <div class="proposal-card">
+            <h2>You really do mean your answer? 🥺</h2>
+            <button class="btn" onclick="finishProposal()">Yes, I do! ❤️</button>
+            <button class="btn" onclick="khabardar()">No...</button>
         </div>
+    </div>
+
+    <div id="finalStage" class="full-screen hidden">
+        <h1 class="final-msg">I LOVE YOU DEEPIKA!</h1>
+        <h2 style="font-size: 2.5rem;">MY WORLD... 🌎💖</h2>
+        <div style="font-size: 4rem;">💋💋💋❤️❤️❤️</div>
     </div>
 
     <script>
-        let targetDate;
-        let isReady = false;
-        let currentSection = 0, currentIdx = 0;
-        let seen = {1:false, 2:false, 3:false};
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [], comets = [];
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 
-        const data = {
-            1: [{img:"Deepika1.jpg", m:"Journey begins 🌱"}, {img:"Deepika2.jpg", m:"Favorite smile 😌💕"}, {img:"Deepika3.jpg", m:"Elegant ✨"}, {img:"Deepika4.jpg", m:"You are mine 🤫❤️"}, {img:"Deepika5.jpg", m:"Doraemon 🐱‍🚀"}, {img:"Deepika6.jpg", m:"Beautiful 👑"}],
-            2: [{img:"Deepika7.jpg", m:"In the moment 🔍💖"}, {img:"Deepika8.jpg", m:"Stay happy 😊🧿"}, {img:"Deepika9.jpg", m:"Thinking... 🤔💭"}, {img:"Deepika10.jpg", m:"Chhota Don 😎👊"}, {img:"Deepika11.jpg", m:"My control 🪄😈"}, {img:"Deepika.jpg", m:"Princess 😘👑"}],
-            3: [{img:"Deepika12.jpg", m:"Holding you 🤝💞"}, {img:"Deepika13.jpg", m:"Our future 👁️🌅"}, {img:"Deepika14.jpg", m:"Bluetooth 📶💝"}, {img:"Deepika15.jpg", m:"You and me 👩‍❤️‍👨"}, {img:"Deepika16.jpg", m:"Deadly duo 🔥⚔️"}, {img:"Deepika17.jpg", m:"Together ♾️🌹"}]
+        class Star {
+            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*1.5; this.opacity = Math.random(); }
+            draw() { ctx.fillStyle = `rgba(255,255,255,${this.opacity})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill(); }
+        }
+        class Comet {
+            constructor() { this.reset(); }
+            reset() { this.x = Math.random()*canvas.width; this.y = -50; this.speed = Math.random()*5+2; this.len = Math.random()*80+20; }
+            update() { this.y += this.speed; this.x -= this.speed/2; if(this.y > canvas.height) this.reset(); }
+            draw() { ctx.strokeStyle = 'rgba(255,215,0,0.5)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(this.x, this.y); ctx.lineTo(this.x+this.len/2, this.y-this.len); ctx.stroke(); }
+        }
+        function initStars() { for(let i=0; i<150; i++) stars.push(new Star()); for(let i=0; i<5; i++) comets.push(new Comet()); }
+        function animate() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            stars.forEach(s => s.draw()); comets.forEach(c => { c.update(); c.draw(); });
+            requestAnimationFrame(animate);
+        }
+        initStars(); animate();
+
+        let targetDate, isReady = false, pIndex = 0, currentS = 0, photoIdx = 0;
+        let seen = {1:false, 2:false, 3:false}, vVerses = false, vLetter = false;
+
+        const poems = [
+            `<b>Our Journey</b>\n\nBestowed upon a flower🌸, Struck by the fragrance she showers🌿. Her simple smile swirls my heart’s core❤️‍🔥. Blooming, my soul becomes ecstatic✨.\n\nHer gaze whispers romance💫, Bringing peace to life’s expanse🕊️. Curves flow from neck down to feet💃. Darling, your lips, a place to die💋, The ultimate moon with no smudge in the sky🌙.`,
+            `<b>Irreplaceable</b>\n\nIsn't the nature indicating somethin', 🌿\nMoon seems to be more shiny. 🌕\nEven the beauty lost its weight, ⚖️\nBeen replaced by the the irreplaceable. ✨\nYeah its the name, that I chase for , 👣\nDeeply in hearts of optimistic forest, 🌲\nThe name of my flower, Deepika. 🌸`,
+            `<b>The Rooting Self</b>\n\nDizziness felt 💫\nAnd darkness arose 🌑\nJust in time, the tale-lore spoke 📖\nEnough of the fairy 🧚‍♀️\nThe magic spread thin ✨\nJust to keep me awake 👁️\nAnd rooting still 🌳\nFor the together self... 👩‍❤️‍👨`
+        ];
+
+        const photos = {
+            1: [{img:"Deepika1.jpg", m:"Journey begins 🌱"}, {img:"Deepika2.jpg", m:"Favorite smile 😌💕"}],
+            2: [{img:"Deepika7.jpg", m:"In the moment 🔍💖"}, {img:"Deepika10.jpg", m:"Chhota Don 😎👊"}],
+            3: [{img:"Deepika12.jpg", m:"Holding you 🤝💞"}, {img:"Deepika17.jpg", m:"Together ♾️🌹"}]
         };
 
         function initExperience() {
             document.getElementById('quizMusic').play();
             document.getElementById('startStage').classList.add('hidden');
             document.getElementById('loungeStage').classList.remove('hidden');
-            targetDate = new Date().getTime() + 60000;
+            targetDate = new Date().getTime() + 5000;
             setInterval(updateTimer, 1000);
         }
-
         function updateTimer() {
             const diff = targetDate - new Date().getTime();
             if(diff <= 0) { isReady = true; document.getElementById('timer').innerText = "00:00:00"; }
-            else {
-                const s = Math.floor((diff % 60000) / 1000);
-                document.getElementById('timer').innerText = `00:00:${s < 10 ? '0' : ''}${s}`;
-            }
+            else { const s = Math.floor((diff%60000)/1000); document.getElementById('timer').innerText = `00:00:0${s}`; }
         }
-
         function checkPatience() {
-            if(isReady) { 
-                document.getElementById('loungeStage').classList.add('hidden');
-                document.getElementById('cipherStage').classList.remove('hidden');
-            } else {
-                document.getElementById('patienceMsg').innerText = "Good things take time... ❤️";
-                setTimeout(() => document.getElementById('patienceMsg').innerText = "", 2000);
-            }
+            if(isReady) { document.getElementById('loungeStage').classList.add('hidden'); document.getElementById('cipherStage').classList.remove('hidden'); }
+            else { document.getElementById('patienceMsg').innerText="Good things take time... ❤️"; setTimeout(()=>document.getElementById('patienceMsg').innerText="", 2000); }
         }
-
         function verifyCipher() {
             if(document.getElementById('cipherInput').value.trim().toUpperCase() === "KARTIK") {
                 document.getElementById('cipherStage').classList.add('hidden');
-                document.getElementById('successStage').classList.remove('hidden');
-                setTimeout(() => {
-                    document.getElementById('successStage').classList.add('hidden');
-                    document.getElementById('menuStage').classList.remove('hidden');
-                    playTrack('memoriesMusic');
-                }, 3000);
+                playTrack('memoriesMusic');
+                document.getElementById('menuStage').classList.remove('hidden');
             }
         }
-
         function showLock() { document.getElementById('passLock').classList.toggle('hidden'); }
-        function verifySecret() { 
-            if(document.getElementById('secretPass').value === "Let's Deep Dive") startSlideshow(2);
-            else alert("Wrong code!");
-        }
-
-        function startSlideshow(id) {
-            currentSection = id; currentIdx = 0; seen[id] = true;
+        function verifySecret() { if(document.getElementById('secretPass').value === "Let's Deep Dive") startPhotos(2); else alert("Incorrect Code!"); }
+        function startPhotos(id) {
+            currentS = id; photoIdx = 0; seen[id] = true;
             document.getElementById('menuStage').classList.add('hidden');
             document.getElementById('slideshowStage').classList.remove('hidden');
             updatePhoto();
         }
-
         function updatePhoto() {
-            const p = data[currentSection][currentIdx];
+            const p = photos[currentS][photoIdx];
             document.getElementById('slideImg').src = p.img;
             document.getElementById('caption').innerText = p.m;
         }
-
         function nextPhoto() {
-            currentIdx++;
-            if(currentIdx < data[currentSection].length) updatePhoto();
+            photoIdx++;
+            if(photoIdx < photos[currentS].length) updatePhoto();
             else {
                 document.getElementById('slideshowStage').classList.add('hidden');
                 if(seen[1] && seen[2] && seen[3]) launchMain();
                 else document.getElementById('menuStage').classList.remove('hidden');
             }
         }
-
         function launchMain() {
-            document.body.className = "bg-romantic";
-            document.getElementById('heart-particles').style.opacity = "1";
             document.getElementById('mainPage').classList.remove('hidden');
             playTrack('mainMusic');
-            createBalloons();
-            fireworks();
-            setTimeout(() => { document.getElementById('fireworks-canvas').style.display = 'none'; }, 4000);
+            moveIcons();
         }
-
-        function playTrack(id) {
-            ['quizMusic', 'memoriesMusic', 'mainMusic'].forEach(mId => {
-                let m = document.getElementById(mId);
-                if(mId === id) m.play(); else m.pause();
+        function moveIcons() {
+            ['iconVerses', 'iconLetter'].forEach(id => {
+                const el = document.getElementById(id);
+                setInterval(() => {
+                    el.style.top = Math.random() * 80 + 'vh';
+                    el.style.left = Math.random() * 80 + 'vw';
+                }, 3000);
             });
         }
-
-        function createBalloons() {
-            for(let i=0; i<15; i++) {
-                let b = document.createElement('div');
-                b.className = 'balloon';
-                b.style.left = Math.random() * 100 + 'vw';
-                b.style.background = `hsl(${Math.random() * 360}, 70%, 70%)`;
-                b.style.animationDelay = Math.random() * 5 + 's';
-                document.body.appendChild(b);
-            }
+        function openPoemFlow() { pIndex = 0; vVerses = true; document.getElementById('poemOverlay').classList.remove('hidden'); updatePoem(); }
+        function updatePoem() { document.getElementById('poemContent').innerHTML = poems[pIndex].replace(/\n/g, "<br>"); }
+        function nextPoem() { pIndex++; if(pIndex < poems.length) updatePoem(); else { document.getElementById('poemOverlay').classList.add('hidden'); unlockP(); } }
+        function openLetter() { vLetter = true; document.getElementById('letterOverlay').classList.remove('hidden'); }
+        function closeLetter() { document.getElementById('letterOverlay').classList.add('hidden'); unlockP(); }
+        function unlockP() { if(vVerses && vLetter) document.getElementById('proposalTrigger').classList.remove('hidden'); }
+        function startProposal() { document.getElementById('mainPage').classList.add('hidden'); document.getElementById('propStage1').classList.remove('hidden'); }
+        function nextPropStage() { document.getElementById('propStage1').classList.add('hidden'); document.getElementById('propStage2').classList.remove('hidden'); }
+        function finishProposal() { document.getElementById('propStage2').classList.add('hidden'); document.getElementById('finalStage').classList.remove('hidden'); }
+        function khabardar() { alert("Khabardar ye option choose kiya toh 🔪"); }
+        function playTrack(id) {
+            ['quizMusic', 'memoriesMusic', 'mainMusic'].forEach(m => {
+                let a = document.getElementById(m);
+                if(m === id) a.play(); else a.pause();
+            });
         }
-
-        function fireworks() {
-            const canvas = document.getElementById('fireworks-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            // Simple firework visual effect logic...
-            ctx.fillStyle = "gold";
-            for(let i=0; i<100; i++) ctx.fillRect(Math.random()*canvas.width, Math.random()*canvas.height, 3, 3);
-        }
-
-        function showOverlay(type) {
-            const body = document.getElementById('overlayBody');
-            if(type === 'poems') {
-                body.innerHTML = `<h2>Verses For You</h2>
-                    <div style="white-space:pre-line" class="handwritten"><b>Poem 1: Our Journey</b>\n[Journey Poem Content]\n\n<b>Poem 2: Irreplaceable</b>\n[Poem 2]\n\n<b>Poem 3: Rooting</b>\n[Poem 3]\n\n<b>Poem 4: New Chapter</b>\n[PASTE NEW POEM HERE]</div>`;
-            } else {
-                body.innerHTML = `<h2>My Heart</h2><div class="handwritten">[PASTE PERSONAL LETTER HERE]</div>`;
-            }
-            document.getElementById('contentOverlay').classList.remove('hidden');
-        }
-
-        function hideOverlay() { document.getElementById('contentOverlay').classList.add('hidden'); }
     </script>
 </body>
-    </html>
+        </html>
