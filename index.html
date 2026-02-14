@@ -1,216 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 18 – Deepika ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 18 – Deepika ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+            background-size: 400% 400%;
+            animation: romanticBG 12s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            color: white;
+            overflow-x: hidden;
+        }
 
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-    background-size: 400% 400%;
-    animation: romanticBG 12s ease infinite;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    color: white;
-    overflow-x: hidden;
-}
+        @keyframes romanticBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-@keyframes romanticBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        /* --- FIX 2: Full Screen Welcome --- */
+        #welcomeScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff4e50, #fc913a, #fbc2eb);
+            background-size: 300% 300%;
+            animation: welcomeBG 8s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 1s ease; /* Smooth Fade */
+        }
 
-#welcomeScreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ff4e50, #fc913a, #fbc2eb);
-    background-size: 300% 300%;
-    animation: welcomeBG 8s ease infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 9999;
-    color: white;
-    text-align: center;
-    top: 0;
-    left: 0;
+        @keyframes welcomeBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-}
+        /* --- FIX 3: Hidden Main Content --- */
+        #mainContent {
+            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            padding-top: 40px; /* Space from top after entering */
+        }
 
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
 
-@keyframes welcomeBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-.gallery {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: 40px 0;
-}
+        .gallery img {
+            width: 220px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease;
+        }
 
-.gallery img {
-    width: 220px;
-    height: 280px;
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    transition: transform 0.4s ease;
-}
+        .gallery img:hover { transform: scale(1.05); }
 
-.gallery img:hover {
-    transform: scale(1.05);
-}
+        /* --- FIX 1: Margin Reset --- */
+        h1 {
+            margin-top: 0; 
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+        }
 
+        .glow {
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff4e50, 0 0 40px #ff4e50;
+            animation: pulse 2s infinite alternate;
+        }
 
-#welcomeScreen h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5em;
-}
+        @keyframes pulse {
+            from { text-shadow: 0 0 10px #fff; }
+            to { text-shadow: 0 0 40px #ff4e50; }
+        }
 
-#welcomeScreen button {
-    padding: 15px 35px;
-    border-radius: 30px;
-    border: none;
-    font-size: 1em;
-    background: #ff4e50;
-    color: white;
-    cursor: pointer;
-}
+        .message {
+            width: 85%;
+            max-width: 600px;
+            margin: 30px auto;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 20px;
+            font-size: 1.2em;
+        }
 
-h1 {
-    margin-top: 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 3em;
-}
+        #musicControl {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #ff4e50;
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1000;
+        }
 
-.glow {
-    text-shadow: 0 0 10px #fff,
-                 0 0 20px #ff4e50,
-                 0 0 40px #ff4e50;
-    animation: pulse 2s infinite alternate;
-}
+        /* Animations */
+        .balloon { position: absolute; bottom: -150px; width: 50px; height: 70px; border-radius: 50%; animation: float 10s infinite ease-in; z-index: -1; }
+        @keyframes float { 100% { transform: translateY(-120vh); } }
+        
+        .confetti { position: absolute; width: 8px; height: 8px; animation: confettiFall 6s linear infinite; z-index: -1; }
+        @keyframes confettiFall { 100% { transform: translateY(110vh) rotate(360deg); } }
 
-@keyframes pulse {
-    from { text-shadow: 0 0 10px #fff; }
-    to { text-shadow: 0 0 40px #ff4e50; }
-}
-
-.message {
-    width: 80%;
-    margin: 30px auto;
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.15);
-    padding: 25px;
-    border-radius: 20px;
-    font-size: 1.2em;
-    line-height: 1.6em;
-}
-
-
-#countdown {
-    font-size: 1.6em;
-    margin-top: 20px;
-}
-
-button {
-    padding: 12px 25px;
-    border-radius: 25px;
-    border: none;
-    margin-top: 20px;
-    background: white;
-    color: #ff4e50;
-    cursor: pointer;
-}
-
-#musicControl {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: white;
-    color: #ff4e50;
-    padding: 8px 18px;
-    border-radius: 30px;
-    cursor: pointer;
-}
-
-.balloon {
-    position: absolute;
-    bottom: -150px;
-    width: 50px;
-    height: 70px;
-    border-radius: 50%;
-    animation: float 10s infinite ease-in;
-}
-
-@keyframes float {
-    0% {transform: translateY(0);}
-    100% {transform: translateY(-120vh);}
-}
-
-.confetti {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    animation: confettiFall 6s linear infinite;
-}
-
-@keyframes confettiFall {
-    0% {transform: translateY(-10vh) rotate(0deg);}
-    100% {transform: translateY(110vh) rotate(360deg);}
-}
-
-.heart {
-    position: fixed;
-    font-size: 18px;
-    pointer-events: none;
-    animation: floatUp 1s linear forwards;
-}
-
-@keyframes floatUp {
-    0% {opacity: 1; transform: translateY(0);}
-    100% {opacity: 0; transform: translateY(-40px);}
-}
-</style>
+        .heart { position: fixed; font-size: 18px; pointer-events: none; animation: floatUp 1s linear forwards; }
+        @keyframes floatUp { 0% { opacity: 1; } 100% { opacity: 0; transform: translateY(-40px); } }
+        
+        button { padding: 12px 25px; border-radius: 25px; border: none; background: white; color: #ff4e50; cursor: pointer; font-weight: bold; }
+    </style>
 </head>
-
 <body>
-<div class="gallery">
-    <img src="Deepika1.jpg">
-    <img src="Deepika2.jpg">
-    <img src="Deepika3.jpg">
-    <img src="Deepika4.jpg">
-    <img src="Deepika5.jpg">
-</div>
 
 <div id="welcomeScreen">
-    <h1>For My Kaajukatli ❤️</h1>
+    <h1 style="font-family: 'Playfair Display', serif;">For My Kaajukatli ❤️</h1>
     <button onclick="enterSite()">Enter Your Chapter 18 ✨</button>
 </div>
 
-<h1 class="glow">Deepika Turns 18 🎂</h1>
-<div id="countdown"></div>
+<div id="mainContent">
+    <div id="musicControl" onclick="toggleMusic()">🎵 Music</div>
 
-<div class="message">
-  <span id="typing"></span>
+    <div class="gallery">
+        <img src="Deepika1.jpg" alt="Deepika 1">
+        <img src="Deepika2.jpg" alt="Deepika 2">
+        <img src="Deepika3.jpg" alt="Deepika 3">
+        <img src="Deepika4.jpg" alt="Deepika 4">
+        <img src="Deepika5.jpg" alt="Deepika 5">
+    </div>
+
+    <h1 class="glow">Deepika Turns 18 🎂</h1>
+    <div id="countdown"></div>
+
+    <div class="message">
+      <span id="typing"></span>
+    </div>
+
+    <button onclick="showSurprise()">Tap For A Surprise 💌</button>
 </div>
-
-<button onclick="showSurprise()">Tap For A Surprise 💌</button>
-
-<div id="musicControl" onclick="toggleMusic()">🎵 Music</div>
 
 <audio id="bgMusic" loop>
   <source src="birthday.mp3" type="audio/mpeg">
@@ -218,24 +164,33 @@ button {
 
 <script>
 function enterSite() {
-    document.getElementById("welcomeScreen").style.display = "none";
-    document.getElementById("bgMusic").play();
+    const welcome = document.getElementById("welcomeScreen");
+    const main = document.getElementById("mainContent");
+    
+    welcome.style.opacity = "0"; // Start fade out
+    
+    setTimeout(() => {
+        welcome.style.display = "none";
+        main.style.display = "block";
+        setTimeout(() => { main.style.opacity = "1"; }, 50); // Start fade in
+        document.getElementById("bgMusic").play();
+        typeWriter(); // Start typing only after entering
+    }, 1000);
 }
 
+// Countdown Logic
 var birthday = new Date("February 16, 2026 00:00:00").getTime();
 setInterval(function() {
   var now = new Date().getTime();
   var diff = birthday - now;
-
   var days = Math.floor(diff / (1000 * 60 * 60 * 24));
   var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-  document.getElementById("countdown").innerHTML =
-    days + " Days " + hours + " Hours " + minutes + " Minutes " + seconds + " Seconds Until 16th Feb ❤️";
+  document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s Until 16th Feb ❤️";
 }, 1000);
 
+// Typing Logic
 const text = "You are not just turning 18... you are stepping into your strength, your dreams, your light. And I feel lucky that I get to walk beside you in this beautiful chapter of your life. ❤️";
 let i = 0;
 function typeWriter() {
@@ -245,17 +200,13 @@ function typeWriter() {
     setTimeout(typeWriter, 40);
   }
 }
-typeWriter();
 
 function toggleMusic() {
   var music = document.getElementById("bgMusic");
-  if (music.paused) {
-    music.play();
-  } else {
-    music.pause();
-  }
+  music.paused ? music.play() : music.pause();
 }
 
+// Visual Effects
 for (let i = 0; i < 15; i++) {
     let balloon = document.createElement("div");
     balloon.className = "balloon";
@@ -264,7 +215,7 @@ for (let i = 0; i < 15; i++) {
     document.body.appendChild(balloon);
 }
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 40; i++) {
     let confetti = document.createElement("div");
     confetti.className = "confetti";
     confetti.style.left = Math.random() * 100 + "vw";
