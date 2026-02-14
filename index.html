@@ -5,7 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy 18th Birthday Deepika ❤️</title>
 
-<style>
+<style>.glow {
+  font-size: 3em;
+  text-shadow: 0 0 10px #fff,
+               0 0 20px #ff4e50,
+               0 0 30px #ff4e50;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  from { text-shadow: 0 0 10px #fff; }
+  to { text-shadow: 0 0 30px #ff4e50; }
+}
+
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -57,6 +69,13 @@ h1 {
 }
 
 .message {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+
     width: 80%;
     margin: auto;
     font-size: 1.2em;
@@ -145,7 +164,7 @@ button {
 </div>
 
 <h1>Happy 18th Birthday 🎂</h1>
-<h2>Deepika Tiwari ❤️</h2>
+<h2 class="glow">Deepika Tiwari ❤️</h2>
 
 <div id="countdown"></div>
 
@@ -169,6 +188,18 @@ Made with love 💕
 </audio>
 
 <script>
+    const text = "You are not just turning 18... you are stepping into your power, your dreams, your light. And I am lucky to witness every second of it. ❤️";
+let i = 0;
+
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 40);
+  }
+}
+typeWriter();
+
 
 /* ENTER SITE */
 function enterSite() {
