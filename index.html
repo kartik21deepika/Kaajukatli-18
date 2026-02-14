@@ -68,9 +68,7 @@
         }
     </style>
 </head>
-<body>
-
-    <div id="welcomeScreen" class="full-screen">
+<body onclick="startQuizMusic()"> <div id="welcomeScreen" class="full-screen">
         <h1 class="glow" style="font-family: 'Playfair Display';">For My Kaajukatli ❤️</h1>
         <div style="background: rgba(0,0,0,0.2); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
             <h3 style="color: var(--accent);">🔓 The Chapter 18 Cipher</h3>
@@ -78,7 +76,7 @@
                 23-8-15 &nbsp; 9-19 &nbsp; 25-15-21-18 <br> 19-15-21-12-13-1-20-5 ?
             </p>
             <p style="font-size: 0.8em; color: #ddd; margin-bottom: 10px;"><i>(HINT: Answer in CAPITAL, No AI for you, Deepika! 😉)</i></p>
-            <input type="text" id="cipherInput" placeholder="DECODE HERE...">
+            <input type="text" id="cipherInput" placeholder="DECODE HERE..." onfocus="startQuizMusic()">
             <br><button class="btn" onclick="checkCipher()">Verify & Enter ✨</button>
             <p id="cipherError" class="hidden" style="color: #ff8585; margin-top: 10px;">That's not it! Try again, love. ❤️</p>
         </div>
@@ -126,7 +124,7 @@
         <div id="revisitBtn" onclick="location.reload()">📷</div>
     </div>
 
-    <audio id="quizMusic" loop autoplay><source src="Quiz.m4a" type="audio/mpeg"></audio>
+    <audio id="quizMusic" loop><source src="Quiz.m4a" type="audio/mpeg"></audio>
     <audio id="slideshowMusic" loop><source src="perfect.mp3" type="audio/mpeg"></audio>
     <audio id="funnyMusic" loop><source src="funny_tune.mp3" type="audio/mpeg"></audio>
     <audio id="mainMusic" loop><source src="main_celebration.mp3" type="audio/mpeg"></audio>
@@ -161,6 +159,15 @@
 
     let currentSectionId = 0, currentIndex = 0;
     let visited = { 1: false, 2: false, 3: false };
+    let quizMusicStarted = false;
+
+    // Trigger music on first interaction
+    function startQuizMusic() {
+        if (!quizMusicStarted) {
+            playTrack('quizMusic');
+            quizMusicStarted = true;
+        }
+    }
 
     // --- Music Manager ---
     function playTrack(trackId) {
@@ -174,17 +181,17 @@
         });
         if (trackId) {
             const active = document.getElementById(trackId);
-            if(active) active.play().catch(e => console.log("User interaction required for music"));
+            if(active) active.play().catch(e => console.log("Interaction required"));
         }
     }
 
-    // Start Quiz Music on load
-    window.onload = () => playTrack('quizMusic');
-
     // --- Cipher Logic ---
     function checkCipher() {
+        // Force music start if it hasn't already (on click)
+        startQuizMusic();
+        
         if(document.getElementById('cipherInput').value.trim().toUpperCase() === "KARTIK") {
-            // Stop Quiz Music immediately
+            // Stop Quiz Music
             const quiz = document.getElementById('quizMusic');
             quiz.pause(); quiz.currentTime = 0;
 
@@ -214,96 +221,4 @@
         setInterval(() => {
             const b = document.createElement('div');
             b.className = 'balloon';
-            b.style.left = Math.random() * 100 + 'vw';
-            b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            b.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.body.appendChild(b);
-            setTimeout(() => b.remove(), 7000);
-        }, 500);
-    }
-
-    // --- Slideshow & Navigation ---
-    function toggleLock() { document.getElementById('funnyLock').classList.toggle('hidden'); }
-    
-    function checkFunnyPass() {
-        if(document.getElementById('funnyPass').value === "Let's Deep Dive") startSection(2);
-        else alert("Incorrect code!");
-    }
-
-    function startSection(id) {
-        currentSectionId = id; currentIndex = 0; visited[id] = true;
-        document.getElementById('categoryMenu').classList.add('hidden');
-        document.getElementById('navPopup').classList.add('hidden');
-        document.getElementById('slideshowContainer').classList.remove('hidden');
-        
-        if(id === 2) playTrack('funnyMusic');
-        else playTrack('slideshowMusic');
-
-        updateSlide();
-    }
-
-    function updateSlide() {
-        const data = sections[currentSectionId][currentIndex];
-        const img = document.getElementById('currentSlideImg');
-        img.src = data.img;
-        document.getElementById('currentCaption').innerText = data.msg;
-        img.classList.remove('fade-slide'); void img.offsetWidth; img.classList.add('fade-slide');
-    }
-
-    function nextSlide() {
-        currentIndex++;
-        if(currentIndex < sections[currentSectionId].length) updateSlide();
-        else handleSectionEnd();
-    }
-
-    function handleSectionEnd() {
-        document.getElementById('slideshowContainer').classList.add('hidden');
-        const popup = document.getElementById('navPopup');
-        const options = document.getElementById('popupOptions');
-        options.innerHTML = "";
-        popup.classList.remove('hidden');
-
-        if (!visited[1]) addOption("✨ The Goddess Era", () => startSection(1));
-        if (!visited[2]) addOption("😜 Little Miss Dramebaaz", () => {
-            popup.classList.add('hidden');
-            document.getElementById('categoryMenu').classList.remove('hidden');
-            document.getElementById('funnyLock').classList.remove('hidden');
-        });
-        if (!visited[3]) addOption("👩‍❤️‍👨 The Soulmate Saga", () => startSection(3));
-        
-        addOption("🚀 Launch Into Chapter 18", launchHome);
-    }
-
-    function addOption(text, callback) {
-        const b = document.createElement('button');
-        b.className = "btn"; b.innerText = text; b.onclick = callback;
-        document.getElementById('popupOptions').appendChild(b);
-    }
-
-    function launchHome() {
-        document.getElementById('navPopup').classList.add('hidden');
-        playTrack('mainMusic');
-        spawnBalloons();
-        const main = document.getElementById('mainContent');
-        main.style.display = "block";
-        setTimeout(() => { main.style.opacity = "1"; typeWriter(); }, 50);
-    }
-
-    // --- Utils ---
-    const bdayDate = new Date("February 16, 2026 00:00:00").getTime();
-    setInterval(() => {
-        const d = bdayDate - new Date().getTime();
-        document.getElementById("countdown").innerHTML = Math.floor(d/(1000*60*60*24)) + "d : " + Math.floor((d%(1000*60*60*24))/(1000*60*60)) + "h : " + Math.floor((d%(1000*60*60))/(1000*60)) + "m : " + Math.floor((d%(1000*60))/1000) + "s Until 16th Feb ❤️";
-    }, 1000);
-
-    const typingText = "You are not just turning 18... you are stepping into your strength, your dreams, and your incredible light. Happy Birthday, Soulmate! ❤️";
-    let charIndex = 0;
-    function typeWriter() {
-        if (charIndex < typingText.length) {
-            document.getElementById("typing").innerHTML += typingText.charAt(charIndex);
-            charIndex++; setTimeout(typeWriter, 50);
-        }
-    }
-</script>
-</body>
-                </html>
+            b.style.
