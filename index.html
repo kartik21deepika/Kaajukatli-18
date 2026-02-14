@@ -3,31 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy 18th Birthday Deepika ❤️</title>
+<title>Chapter 18 – Deepika ❤️</title>
 
-<style>.glow {
-  font-size: 3em;
-  text-shadow: 0 0 10px #fff,
-               0 0 20px #ff4e50,
-               0 0 30px #ff4e50;
-  animation: pulse 2s infinite alternate;
-}
+<!-- Romantic Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
-@keyframes pulse {
-  from { text-shadow: 0 0 10px #fff; }
-  to { text-shadow: 0 0 30px #ff4e50; }
-}
-
+<style>
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
     text-align: center;
     color: white;
     cursor: none;
-    background: linear-gradient(-45deg, #ff4e50, #fc913a, #f9d423, #ff4e50);
+    background: linear-gradient(-45deg, #ff4e50, #ff6a88, #ff99ac, #ff4e50);
     background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    animation: gradient 12s ease infinite;
 }
 
 @keyframes gradient {
@@ -50,61 +41,72 @@ body {
 }
 
 #welcomeScreen h1 {
-    font-size: 2.5em;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8em;
 }
 
 #welcomeScreen button {
-    padding: 15px 30px;
-    border: none;
+    padding: 15px 35px;
     border-radius: 30px;
+    border: none;
+    font-size: 1em;
     background: #ff4e50;
     color: white;
-    font-size: 1em;
     cursor: pointer;
 }
 
 h1 {
     margin-top: 60px;
+    font-family: 'Playfair Display', serif;
     font-size: 3em;
 }
 
-.message {
-  backdrop-filter: blur(10px);
-  background: rgba(255,255,255,0.1);
-  padding: 20px;
-  border-radius: 20px;
+.glow {
+    text-shadow: 0 0 10px #fff,
+                 0 0 20px #ff4e50,
+                 0 0 40px #ff4e50;
+    animation: pulse 2s infinite alternate;
 }
 
+@keyframes pulse {
+    from { text-shadow: 0 0 10px #fff; }
+    to { text-shadow: 0 0 40px #ff4e50; }
+}
 
+.message {
     width: 80%;
-    margin: auto;
+    margin: 30px auto;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 20px;
     font-size: 1.2em;
     line-height: 1.6em;
 }
 
+#countdown {
+    font-size: 1.8em;
+    margin-top: 20px;
+}
+
 button {
-    padding: 15px 30px;
+    padding: 12px 25px;
+    border-radius: 25px;
     border: none;
-    border-radius: 30px;
+    margin-top: 20px;
     background: white;
     color: #ff4e50;
     cursor: pointer;
 }
 
-#countdown {
-    font-size: 2em;
-    margin: 20px;
-}
-
-/* Music Button */
 #musicControl {
     position: fixed;
     top: 20px;
     right: 20px;
     background: white;
     color: #ff4e50;
-    border-radius: 50px;
-    padding: 10px 20px;
+    padding: 8px 18px;
+    border-radius: 30px;
     cursor: pointer;
 }
 
@@ -115,7 +117,7 @@ button {
     width: 50px;
     height: 70px;
     border-radius: 50%;
-    animation: float 8s infinite ease-in;
+    animation: float 10s infinite ease-in;
 }
 
 @keyframes float {
@@ -128,7 +130,7 @@ button {
     position: absolute;
     width: 8px;
     height: 8px;
-    animation: confettiFall 5s linear infinite;
+    animation: confettiFall 6s linear infinite;
 }
 
 @keyframes confettiFall {
@@ -148,67 +150,42 @@ button {
     0% {opacity: 1; transform: translateY(0);}
     100% {opacity: 0; transform: translateY(-40px);}
 }
-
-.footer {
-    margin-top: 40px;
-    font-size: 0.9em;
-}
 </style>
 </head>
 
 <body>
 
 <div id="welcomeScreen">
-    <h1>For Deepika Tiwari ❤️</h1>
-    <button onclick="enterSite()">Enter Your Surprise ✨</button>
+    <h1>For My Kaajukatli ❤️</h1>
+    <button onclick="enterSite()">Enter Your Chapter 18 ✨</button>
 </div>
 
-<h1>Happy 18th Birthday 🎂</h1>
-<h2 class="glow">Deepika Tiwari ❤️</h2>
+<h1 class="glow">Deepika Tiwari Turns 18 🎂</h1>
 
 <div id="countdown"></div>
 
 <div class="message">
-You are officially 18 ✨  
-A new chapter begins today.  
-May your life shine brighter than every candle on your cake.  
-Thank you for being the most beautiful part of my world. 💖
+  <span id="typing"></span>
 </div>
 
-<button onclick="showSurprise()">Click for Surprise 💌</button>
+<button onclick="showSurprise()">Tap For A Surprise 💌</button>
 
 <div id="musicControl" onclick="toggleMusic()">🎵 Music</div>
-
-<div class="footer">
-Made with love 💕
-</div>
 
 <audio id="bgMusic" loop>
   <source src="birthday.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-    const text = "You are not just turning 18... you are stepping into your power, your dreams, your light. And I am lucky to witness every second of it. ❤️";
-let i = 0;
 
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 40);
-  }
-}
-typeWriter();
-
-
-/* ENTER SITE */
+/* Enter Site */
 function enterSite() {
     document.getElementById("welcomeScreen").style.display = "none";
     document.getElementById("bgMusic").play();
 }
 
-/* Countdown */
-var birthday = new Date("June 20, 2026 00:00:00").getTime();  // CHANGE DATE
+/* Countdown to 16 Feb 12:00 AM */
+var birthday = new Date("February 16, 2026 00:00:00").getTime();
 setInterval(function() {
   var now = new Date().getTime();
   var diff = birthday - now;
@@ -219,10 +196,22 @@ setInterval(function() {
   var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
   document.getElementById("countdown").innerHTML =
-    days + "d " + hours + "h " + minutes + "m " + seconds + "s until your special moment 🎉";
+    days + " Days " + hours + " Hours " + minutes + " Minutes " + seconds + " Seconds Until 16th Feb ❤️";
 }, 1000);
 
-/* Music Control */
+/* Typing Effect */
+const text = "You are not just turning 18... you are stepping into your strength, your dreams, your light. And I feel lucky that I get to walk beside you in this beautiful chapter of your life. ❤️";
+let i = 0;
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 40);
+  }
+}
+typeWriter();
+
+/* Music Toggle */
 function toggleMusic() {
   var music = document.getElementById("bgMusic");
   if (music.paused) {
@@ -238,7 +227,6 @@ for (let i = 0; i < 15; i++) {
     balloon.className = "balloon";
     balloon.style.left = Math.random() * 100 + "vw";
     balloon.style.background = "hsl(" + Math.random() * 360 + ", 100%, 70%)";
-    balloon.style.animationDuration = (5 + Math.random() * 5) + "s";
     document.body.appendChild(balloon);
 }
 
@@ -248,11 +236,10 @@ for (let i = 0; i < 50; i++) {
     confetti.className = "confetti";
     confetti.style.left = Math.random() * 100 + "vw";
     confetti.style.background = "hsl(" + Math.random() * 360 + ", 100%, 70%)";
-    confetti.style.animationDuration = (3 + Math.random() * 4) + "s";
     document.body.appendChild(confetti);
 }
 
-/* Heart Cursor Trail */
+/* Heart Cursor */
 document.addEventListener("mousemove", function(e) {
     let heart = document.createElement("div");
     heart.className = "heart";
@@ -260,15 +247,12 @@ document.addEventListener("mousemove", function(e) {
     heart.style.top = e.clientY + "px";
     heart.innerHTML = "💖";
     document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 1000);
+    setTimeout(() => heart.remove(), 1000);
 });
 
 /* Surprise */
 function showSurprise() {
-    alert("Deepika ❤️ You are my today and all my tomorrows. Happy 18th Birthday!");
+    alert("Happy 18th Birthday Deepika ❤️ You are my favorite part of every day.");
 }
 
 </script>
