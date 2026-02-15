@@ -6,7 +6,7 @@
     <title>Chapter 18 – Deepika ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&family=Caveat:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff4e50; --accent: #ffd700; --purple-bg: #2d004d; --neon: #00ffcc; }
+        :root { --primary: #ff4e50; --accent: #ffd700; --purple-bg: #2d004d; --neon: #00ffcc; --light-fog: rgba(230, 190, 255, 0.9); }
         body { margin: 0; padding: 0; min-height: 100vh; background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1); background-size: 400% 400%; animation: romanticBG 12s ease infinite; font-family: 'Poppins', sans-serif; text-align: center; color: white; overflow-x: hidden; }
         @keyframes romanticBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
@@ -24,39 +24,36 @@
         #dateGate { background: radial-gradient(circle, #2c3e50 0%, #000000 100%); }
         #countdownTimer { font-size: 3em; font-family: 'Playfair Display'; color: var(--accent); margin: 20px 0; }
 
-        .cipher-box { background: rgba(0,0,0,0.3); padding: 40px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .cipher-box { background: rgba(0,0,0,0.3); padding: 40px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); }
 
         #slideshowContainer { background: radial-gradient(circle, #430000 0%, #000000 100%); z-index: 11000; }
         .slide-img { max-width: 85%; max-height: 65vh; border-radius: 20px; border: 5px solid white; box-shadow: 0 0 40px rgba(255,78,80,0.4); }
-        .caption { margin-top: 30px; font-size: 2.2em; font-family: 'Caveat', cursive; color: var(--accent); text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
+        .caption { margin-top: 30px; font-size: 2.2em; font-family: 'Caveat', cursive; color: var(--accent); }
 
-        /* Final Page Elements */
-        #mainContent { background: var(--purple-bg); }
+        /* Final Page & Stars */
+        #mainContent, #finalLovePage, #qPage1, #qPage2 { background: var(--purple-bg); }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: crash 2s linear infinite; }
-        @keyframes crash { 0% { transform: translateY(-10vh) translateX(0); opacity: 1; } 100% { transform: translateY(110vh) translateX(10vw); opacity: 0; } }
+        @keyframes crash { 0% { transform: translateY(-10vh); opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
 
-        .message-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 40px; border-radius: 25px; max-width: 650px; margin: 20px auto; border: 1px solid var(--neon); line-height: 1.8; font-size: 1.2em; z-index: 2; position: relative; }
-        
-        .balloon { position: fixed; bottom: -120px; width: 60px; height: 85px; border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%; z-index: 999; animation: floatUp 7s ease-in forwards; }
-        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-130vh) rotate(15deg); opacity: 0; } }
-
-        /* Wall of Love Sidebar */
-        #loveSidebar { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 1001; cursor: pointer; animation: floatSide 3s ease-in-out infinite; }
-        @keyframes floatSide { 0%, 100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-55%) scale(1.1); } }
-        .love-icon { font-size: 40px; filter: drop-shadow(0 0 10px var(--neon)); }
-
-        #lovePop { background: rgba(45, 0, 77, 0.95); z-index: 5000; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 50px; }
-        .nickname { font-family: 'Dancing Script', cursive; font-size: 2em; color: var(--accent); text-shadow: 2px 2px 5px rgba(0,0,0,0.5); animation: fadeIn 0.5s forwards; opacity: 0; }
+        /* Nickname Popup Fix */
+        #loveSidebar { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 1001; cursor: pointer; }
+        .love-icon { font-size: 40px; filter: drop-shadow(0 0 10px var(--neon)); animation: heartBeat 1.2s infinite; }
+        #lovePop { background: rgba(20, 0, 40, 0.98); z-index: 5000; overflow-y: auto; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; padding: 40px; }
+        .nickname { font-family: 'Dancing Script', cursive; font-size: 2.2em; color: var(--accent); margin: 10px; opacity: 0; animation: fadeIn 0.5s forwards; }
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* Heart Interaction */
-        #heartPulseContainer { z-index: 2; margin: 10px auto; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; position: relative; }
-        .main-heart { font-size: 60px; cursor: pointer; animation: heartBeat 1.2s infinite; user-select: none; }
+        /* Reveal Game */
+        .reveal-container { position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #revealCanvas { position: absolute; top: 0; left: 0; z-index: 5; cursor: crosshair; touch-action: none; }
+        #hiddenMessage { z-index: 1; opacity: 0; transition: opacity 1.5s; }
+
+        /* Letter Box */
+        .letter-card { background: white; color: #333; padding: 30px; border-radius: 15px; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-family: 'Caveat'; font-size: 1.5em; transform: scale(0); transition: 0.5s; }
+        .letter-active { transform: scale(1); }
+
         @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
         .floating-heart { position: fixed; pointer-events: none; animation: flyUp 2s ease-out forwards; z-index: 9999; }
-        @keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-250px) scale(2); opacity: 0; } }
-
-        #finalDeclaration { font-family: 'Playfair Display'; font-size: 4em; color: var(--neon); text-shadow: 0 0 20px var(--neon); }
+        @keyframes flyUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-200px); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -67,147 +64,128 @@
 
     <div id="audioOverlay" class="full-screen" onclick="startExperience()">
         <h1 class="glow" style="font-family: 'Playfair Display'; font-size: 3.5em;">Chapter 18 ❤️</h1>
-        <p style="font-size: 1.2em; letter-spacing: 1px;">Click to enter Deepika's World</p>
         <button class="btn">Start Magic ✨</button>
     </div>
 
     <div id="dateGate" class="full-screen hidden">
-        <h2 class="glow" style="font-family: 'Playfair Display';">Good things take time, My Love... 💗</h2>
-        <div id="countdownTimer">00:00:00</div>
-        <button id="proceedToCipher" class="btn hidden" onclick="showCipher()">Unlock My Memories ➔</button>
+        <h2 class="glow" style="font-family: 'Playfair Display';">The Wait is Almost Over... 💗</h2>
+        <div id="countdownTimer">10s</div>
+        <button id="proceedToCipher" class="btn hidden" onclick="showCipher()">Unlock Memories ➔</button>
     </div>
 
     <div id="welcomeScreen" class="full-screen hidden">
-        <h1 class="glow" style="font-family: 'Playfair Display'; margin-bottom: 20px;">For My Kaajukatli ❤️</h1>
         <div class="cipher-box">
-            <h3 style="color: var(--accent); font-family: 'Poppins';">🔓 The Chapter 18 Cipher</h3>
-            <p style="letter-spacing: 4px; border: 2px dashed #fff; padding: 20px; font-size: 1.5em; background: rgba(0,0,0,0.2); border-radius: 15px; color: var(--accent);">
+            <h3 style="color: var(--accent);">🔓 The Chapter 18 Cipher</h3>
+            <p style="letter-spacing: 4px; border: 2px dashed #fff; padding: 20px; font-size: 1.5em; color: var(--accent);">
                 23-8-15 &nbsp; 9-19 &nbsp; 25-15-21-18 <br> 19-15-21-12-13-1-20-5 ?
             </p>
-            <p style="font-size: 0.85em; color: #ffd7d7; margin-top: 15px;"><i>(HINT: Answer in CAPITAL letters. No AI help! 😉)</i></p>
-            <input type="text" id="cipherInput" placeholder="ENTER DECODED NAME...">
-            <br><button class="btn" onclick="checkCipher()">Verify & Unlock ✨</button>
-            <p id="cipherError" class="hidden" style="color: #ff8585; font-weight: bold; margin-top: 15px;">That's not it! Try again, my love. ❤️</p>
+            <p style="font-size: 0.8em;">(HINT: CAPITAL LETTERS, NO AI! 😉)</p>
+            <input type="text" id="cipherInput" placeholder="DECODE THE NAME...">
+            <br><button class="btn" onclick="checkCipher()">Verify ✨</button>
+            <p id="cipherError" class="hidden" style="color: #ff8585;">Try again, my love. ❤️</p>
         </div>
     </div>
 
     <div id="successScreen" class="full-screen hidden">
-        <h1 class="glow" style="font-size: 4em; font-family: 'Playfair Display';">Correct! ✅</h1>
-        <p style="font-family: 'Caveat'; font-size: 1.8em; color: var(--accent);">Welcome to your 18th Chapter. ❤️✨</p>
+        <h1 class="glow" style="font-size: 4em;">Correct! ✅</h1>
     </div>
 
     <div id="categoryMenu" class="full-screen hidden">
-        <h2 class="glow" style="font-family: 'Playfair Display'; font-size: 2.5em; margin-bottom: 40px;">Choose a Storyline ✨</h2>
+        <h2 class="glow" style="font-size: 2.5em; margin-bottom: 40px;">Choose a Storyline ✨</h2>
         <button class="btn" onclick="startSection(1)">✨ The Classic Beauty</button>
         <button class="btn" onclick="toggleLock()">😜 Little Miss Dramebaaz</button>
         <button class="btn" onclick="startSection(3)">👩‍❤️‍👨 The Soulmate Saga</button>
         <div id="funnyLock" class="hidden">
             <input type="password" id="funnyPass" placeholder="Secret Access Code...">
-            <br><button class="btn" onclick="checkFunnyPass()">Unlock Folder 🔓</button>
+            <br><button class="btn" onclick="checkFunnyPass()">Unlock 🔓</button>
         </div>
     </div>
 
     <div id="slideshowContainer" class="full-screen hidden">
         <img id="currentSlideImg" class="slide-img" src="">
         <div id="currentCaption" class="caption"></div>
-        <button class="btn" onclick="nextSlide()" style="margin-top: 30px;">Next Memory ➔</button>
+        <button class="btn" onclick="nextSlide()">Next ➔</button>
     </div>
 
     <div id="navPopup" class="full-screen hidden" style="background: rgba(0,0,0,0.95);">
-        <h2 class="glow" style="font-family: 'Playfair Display';">Where to next, Deepika? ✨</h2>
+        <h2 class="glow">Where to next? ✨</h2>
         <div id="popupOptions"></div>
     </div>
 
     <div id="mainContent" class="full-screen hidden">
         <div id="starsContainer"></div>
-        
         <div id="loveSidebar" onclick="toggleLovePop()">
             <div class="love-icon">💖</div>
-            <p style="font-size: 0.7em; font-weight: bold; color: var(--neon);">WALL OF LOVE</p>
+            <p style="font-size: 0.7em; color: var(--neon);">WALL OF LOVE</p>
         </div>
-
-        <h1 class="glow" style="font-size: 3em; font-family: 'Playfair Display'; z-index: 2; position: relative;">HAPPIEST BIRTHDAY <br> MERI KAAJUKATLI 🎂💖</h1>
-        
-        <div id="heartPulseContainer">
-            <div class="main-heart" onclick="popHeart(event)">❤️</div>
-        </div>
-        <p style="font-family: 'Caveat'; color: var(--neon); z-index: 2; position: relative; margin-top: -10px;">(Tap the heart to feel my pulse...)</p>
-
-        <div class="message-box">
-            <span id="typing"></span>
-        </div>
-        
-        <button class="btn" onclick="showQuestion(1)" style="margin-top: 10px; z-index: 2; position: relative;">A Question for you... 💌</button>
+        <h1 class="glow" style="font-size: 3em;">HAPPIEST BIRTHDAY <br> DEEPIKA 🎂💖</h1>
+        <div id="heartPulseContainer"><div class="main-heart" style="font-size: 60px; animation: heartBeat 1.2s infinite; cursor: pointer;" onclick="popHeart(event)">❤️</div></div>
+        <div class="message-box"><span id="typing"></span></div>
+        <button class="btn" onclick="showQuestion(1)">A Question for you... 💌</button>
     </div>
 
-    <div id="lovePop" class="full-screen hidden" onclick="toggleLovePop()">
-        <h2 style="width: 100%; font-family: 'Playfair Display'; color: white; margin-bottom: 20px;">My Beautiful...</h2>
-        </div>
+    <div id="lovePop" class="full-screen hidden" onclick="toggleLovePop()"></div>
 
-    <div id="qPage1" class="full-screen hidden" style="background: var(--purple-bg);">
-        <div style="font-size: 2.5em; margin-bottom: 30px;">How many future years do you want to be with me? 🥺</div>
-        <button class="btn" onclick="showQuestion(2)" style="font-size: 2em;">∞</button>
+    <div id="qPage1" class="full-screen hidden">
+        <div style="font-size: 2em; margin-bottom: 30px;">How many future years with me? 🥺</div>
+        <button class="btn" onclick="showQuestion(2)">∞</button>
         <button class="btn" onclick="showQuestion(2)">INFINITE</button>
     </div>
 
-    <div id="qPage2" class="full-screen hidden" style="background: var(--purple-bg);">
-        <div style="font-size: 2.5em; margin-bottom: 30px;">You really do mean your answer? 🧐</div>
+    <div id="qPage2" class="full-screen hidden">
+        <div style="font-size: 2em; margin-bottom: 30px;">Do you really mean it? 🧐</div>
         <button class="btn" onclick="finalDeclaration()">YES! ❤️</button>
         <button class="btn" onclick="alert('Khabardar ye option choose kiya toh 🔪');">NO</button>
     </div>
 
-    <div id="finalLovePage" class="full-screen hidden" style="background: var(--purple-bg);">
-        <h1 id="finalDeclaration">I LOVE YOU DEEPIKA!<br>MY WORLD 🌍❤️</h1>
-        <div style="font-size: 5em;">😘💖💐🥰💌</div>
+    <div id="finalLovePage" class="full-screen hidden">
+        <div class="reveal-container">
+            <div id="hiddenMessage">
+                <h1 id="finalDeclaration" style="color: var(--neon); font-size: 3.5em;">I LOVE YOU DEEPIKA!<br>MY WORLD 🌍❤️</h1>
+                <div style="font-size: 3em; margin: 20px;">😘💖💐🥰</div>
+                
+                <div id="bouquetSection" style="margin-top: 20px;">
+                    <div style="font-size: 50px; cursor: pointer;" onclick="openLetter()">💐</div>
+                    <p style="font-family: 'Caveat';">Click here</p>
+                </div>
+
+                <div id="surpriseLetter" class="letter-card">
+                    <p>Hope you like this Surprise! 🌸</p>
+                    <p>Now something special is waiting for you:</p>
+                    <a href="https://digibouquet.vercel.app/bouquet/3f6e53da-ef6d-4b64-9e1a-389729da7fe7" target="_blank" style="color: var(--primary); word-break: break-all;">Click to See Your Flowers</a>
+                </div>
+            </div>
+            <canvas id="revealCanvas"></canvas>
+            <div id="revealInstr" style="position: absolute; top: 20%; z-index: 10; font-family: 'Caveat'; font-size: 1.8em; color: white;">Clear the magic fog to reveal my heart... ✨</div>
+        </div>
     </div>
 
 <script>
     let currentSectionId = 0, currentIndex = 0;
     let visited = { 1: false, 2: false, 3: false };
-    const quizAud = document.getElementById('quizMusic');
-    const memAud = document.getElementById('memoriesMusic');
-    const finAud = document.getElementById('finalMusic');
-
+    const quizAud = document.getElementById('quizMusic'), memAud = document.getElementById('memoriesMusic'), finAud = document.getElementById('finalMusic');
     const nicknames = ["Sweetheart", "Doraemon", "Kaajukatli", "Gulab Jamun", "Sweety", "Natkhat", "My Other Half", "My Life", "Cutie pie", "My soul", "My heartbeat", "Raajkumarii", "Meri bachii", "My Moon without smudge"];
 
     function startExperience() {
         quizAud.play();
         document.getElementById('audioOverlay').classList.add('hidden');
         document.getElementById('dateGate').classList.remove('hidden');
-        startCountdown();
-    }
-
-    function startCountdown() {
-        let time = 10; 
-        const display = document.getElementById('countdownTimer');
+        let time = 10;
         const interval = setInterval(() => {
             time--;
-            if(time <= 0) {
-                clearInterval(interval);
-                display.innerText = "It's Time! ❤️";
-                document.getElementById('proceedToCipher').classList.remove('hidden');
-            } else { display.innerText = time + "s"; }
+            document.getElementById('countdownTimer').innerText = time + "s";
+            if(time <= 0) { clearInterval(interval); document.getElementById('proceedToCipher').classList.remove('hidden'); }
         }, 1000);
     }
 
-    function showCipher() {
-        document.getElementById('dateGate').classList.add('hidden');
-        document.getElementById('welcomeScreen').classList.remove('hidden');
-    }
+    function showCipher() { document.getElementById('dateGate').classList.add('hidden'); document.getElementById('welcomeScreen').classList.remove('hidden'); }
 
     function checkCipher() {
         if(document.getElementById('cipherInput').value.trim().toUpperCase() === "KARTIK") {
-            let vol = 1.0;
-            let fade = setInterval(() => {
-                if(vol > 0.1) { vol -= 0.1; quizAud.volume = vol; }
-                else { clearInterval(fade); quizAud.pause(); memAud.play(); }
-            }, 100);
+            quizAud.pause(); memAud.play();
             document.getElementById('welcomeScreen').classList.add('hidden');
             document.getElementById('successScreen').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('successScreen').classList.add('hidden');
-                document.getElementById('categoryMenu').classList.remove('hidden');
-            }, 3000);
+            setTimeout(() => { document.getElementById('successScreen').classList.add('hidden'); document.getElementById('categoryMenu').classList.remove('hidden'); }, 2000);
         } else { document.getElementById('cipherError').classList.remove('hidden'); }
     }
 
@@ -226,126 +204,82 @@
     }
 
     function updateSlide() {
-        const data = sections[currentSectionId][currentIndex];
-        document.getElementById('currentSlideImg').src = data.img;
-        document.getElementById('currentCaption').innerText = data.msg;
+        document.getElementById('currentSlideImg').src = sections[currentSectionId][currentIndex].img;
+        document.getElementById('currentCaption').innerText = sections[currentSectionId][currentIndex].msg;
     }
 
     function nextSlide() {
         currentIndex++;
         if(currentIndex < sections[currentSectionId].length) updateSlide();
-        else handleSectionEnd();
+        else {
+            document.getElementById('slideshowContainer').classList.add('hidden');
+            const pop = document.getElementById('navPopup');
+            const opts = document.getElementById('popupOptions');
+            opts.innerHTML = "";
+            pop.classList.remove('hidden');
+            if(!visited[1]) addOpt("The Classic Beauty", () => startSection(1), opts);
+            if(!visited[2]) addOpt("Dramebaaz", () => { pop.classList.add('hidden'); document.getElementById('categoryMenu').classList.remove('hidden'); document.getElementById('funnyLock').classList.remove('hidden'); }, opts);
+            if(!visited[3]) addOpt("Soulmate Saga", () => startSection(3), opts);
+            addOpt("🚀 Launch Chapter 18", launchHome, opts);
+        }
     }
 
-    function handleSectionEnd() {
-        document.getElementById('slideshowContainer').classList.add('hidden');
-        const popup = document.getElementById('navPopup');
-        const options = document.getElementById('popupOptions');
-        options.innerHTML = "";
-        popup.classList.remove('hidden');
-        if (!visited[1]) addOption("✨ The Goddess Era", () => startSection(1));
-        if (!visited[2]) addOption("😜 Dramebaaz", () => {
-            popup.classList.add('hidden');
-            document.getElementById('categoryMenu').classList.remove('hidden');
-            document.getElementById('funnyLock').classList.remove('hidden');
-        });
-        if (!visited[3]) addOption("👩‍❤️‍👨 Soulmate Saga", () => startSection(3));
-        addOption("🚀 Launch Into Chapter 18", launchHome);
-    }
-
-    function addOption(text, cb) {
-        const b = document.createElement('button'); b.className = "btn"; b.innerText = text; b.onclick = cb;
-        document.getElementById('popupOptions').appendChild(b);
-    }
+    function addOpt(txt, cb, parent) { const b = document.createElement('button'); b.className="btn"; b.innerText=txt; b.onclick=cb; parent.appendChild(b); }
 
     function launchHome() {
         memAud.pause(); finAud.play();
         document.getElementById('navPopup').classList.add('hidden');
         document.getElementById('mainContent').classList.remove('hidden');
         createStars(); spawnBalloons();
-        setTimeout(() => { document.getElementById('mainContent').style.opacity = "1"; typeWriter(); }, 50);
+        let text = "Stepping into your incredible light. Happy Birthday, Soulmate! ❤️", i = 0;
+        function type() { if(i < text.length) { document.getElementById("typing").innerHTML += text.charAt(i); i++; setTimeout(type, 50); } }
+        type();
     }
 
     function toggleLovePop() {
         const pop = document.getElementById('lovePop');
         if(pop.classList.contains('hidden')) {
-            pop.innerHTML = '<h2 style="width: 100%; font-family: \'Playfair Display\'; color: white; margin-bottom: 20px;">My Beautiful...</h2>';
-            nicknames.forEach((name, i) => {
-                const span = document.createElement('span');
-                span.className = 'nickname';
-                span.innerText = name + (i < nicknames.length - 1 ? " • " : "");
-                span.style.animationDelay = (i * 0.1) + 's';
-                pop.appendChild(span);
-            });
+            pop.innerHTML = '<h2 style="width:100%;">Every name I call you... ❤️</h2>';
+            nicknames.forEach((n, i) => { const s = document.createElement('span'); s.className='nickname'; s.innerText=n+" • "; s.style.animationDelay=(i*0.05)+'s'; pop.appendChild(s); });
             pop.classList.remove('hidden');
-        } else { pop.classList.add('hidden'); }
+        } else pop.classList.add('hidden');
     }
 
     function popHeart(e) {
         for(let i=0; i<3; i++) {
-            const h = document.createElement('div');
-            h.innerHTML = '❤️';
-            h.className = 'floating-heart';
-            h.style.left = e.clientX + (Math.random()*40-20) + 'px';
-            h.style.top = e.clientY + 'px';
-            h.style.fontSize = (Math.random()*20+20)+'px';
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), 2000);
+            const h = document.createElement('div'); h.innerHTML = '❤️'; h.className = 'floating-heart';
+            h.style.left = e.clientX + 'px'; h.style.top = e.clientY + 'px';
+            document.body.appendChild(h); setTimeout(() => h.remove(), 2000);
         }
     }
 
-    function createStars() {
-        const container = document.getElementById('starsContainer');
-        for(let i=0; i<50; i++) {
-            const s = document.createElement('div');
-            s.className = 'star';
-            s.style.width = s.style.height = Math.random()*3 + 'px';
-            s.style.left = Math.random()*100 + 'vw';
-            s.style.animationDelay = Math.random()*2 + 's';
-            container.appendChild(s);
-        }
-    }
-
-    function spawnBalloons() {
-        setInterval(() => {
-            const b = document.createElement('div');
-            b.className = 'balloon';
-            b.style.left = Math.random() * 100 + 'vw';
-            b.style.backgroundColor = ['#ff4e50','#ffd700','#ff9a9e','#ffffff'][Math.floor(Math.random()*4)];
-            b.style.animationDuration = (Math.random()*3+4)+'s';
-            document.body.appendChild(b);
-            setTimeout(() => b.remove(), 7000);
-        }, 800);
-    }
-
-    function typeWriter() {
-        const text = "You are stepping into your incredible light. Happy Birthday, Soulmate! ❤️";
-        let i = 0;
-        function type() {
-            if (i < text.length) {
-                document.getElementById("typing").innerHTML += text.charAt(i);
-                i++; setTimeout(type, 55);
-            }
-        }
-        type();
-    }
-
-    function showQuestion(num) {
+    function showQuestion(n) {
         document.getElementById('mainContent').classList.add('hidden');
         document.getElementById('qPage1').classList.add('hidden');
-        document.getElementById('qPage' + num).classList.remove('hidden');
+        document.getElementById('qPage'+n).classList.remove('hidden');
     }
 
     function finalDeclaration() {
         document.getElementById('qPage2').classList.add('hidden');
         document.getElementById('finalLovePage').classList.remove('hidden');
+        const cvs = document.getElementById('revealCanvas'), ctx = cvs.getContext('2d');
+        cvs.width = window.innerWidth; cvs.height = window.innerHeight;
+        ctx.fillStyle = '#e6beff'; ctx.fillRect(0,0,cvs.width,cvs.height);
+        ctx.globalCompositeOperation = 'destination-out';
+        const scrub = (e) => {
+            const x = (e.clientX || e.touches[0].clientX), y = (e.clientY || e.touches[0].clientY);
+            ctx.beginPath(); ctx.arc(x, y, 40, 0, Math.PI*2); ctx.fill();
+            document.getElementById('hiddenMessage').style.opacity = "1";
+            document.getElementById('revealInstr').style.opacity = "0";
+        };
+        cvs.addEventListener('mousemove', scrub); cvs.addEventListener('touchmove', scrub);
     }
 
+    function openLetter() { document.getElementById('surpriseLetter').classList.add('letter-active'); }
+    function createStars() { for(let i=0; i<50; i++) { const s = document.createElement('div'); s.className='star'; s.style.left=Math.random()*100+'vw'; s.style.top=Math.random()*100+'vh'; document.getElementById('starsContainer').appendChild(s); } }
+    function spawnBalloons() { setInterval(() => { const b = document.createElement('div'); b.className='balloon'; b.style.left=Math.random()*100+'vw'; b.style.backgroundColor='#ff4e50'; document.body.appendChild(b); setTimeout(()=>b.remove(),7000); }, 800); }
     function toggleLock() { document.getElementById('funnyLock').classList.toggle('hidden'); }
-    function checkFunnyPass() {
-        if(document.getElementById('funnyPass').value === "Let's Deep Dive") startSection(2);
-        else alert("Ask Deepika for the secret code... 🤫❤️");
-    }
+    function checkFunnyPass() { if(document.getElementById('funnyPass').value === "Let's Deep Dive") startSection(2); else alert("Ask Kartik for the code! 😉"); }
 </script>
 </body>
-            </html>
+</html>
