@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter 18 – Deepika ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&family=Caveat:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff4e50; --accent: #ffd700; --purple-bg: #2d004d; }
+        :root { --primary: #ff4e50; --accent: #ffd700; --purple-bg: #2d004d; --neon: #00ffcc; }
         body { margin: 0; padding: 0; min-height: 100vh; background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1); background-size: 400% 400%; animation: romanticBG 12s ease infinite; font-family: 'Poppins', sans-serif; text-align: center; color: white; overflow-x: hidden; }
         @keyframes romanticBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
@@ -30,17 +30,33 @@
         .slide-img { max-width: 85%; max-height: 65vh; border-radius: 20px; border: 5px solid white; box-shadow: 0 0 40px rgba(255,78,80,0.4); }
         .caption { margin-top: 30px; font-size: 2.2em; font-family: 'Caveat', cursive; color: var(--accent); text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
 
-        /* Final Page & Purple Stars Theme */
-        #finalLovePage, #qPage1, #qPage2, #mainContent { background: var(--purple-bg); }
+        /* Final Page Elements */
+        #mainContent { background: var(--purple-bg); }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: crash 2s linear infinite; }
-        @keyframes crash { 0% { transform: translateY(-10vh) translateX(0); opacity: 1; } 100% { transform: translateY(110vh) translateX(20vw); opacity: 0; } }
+        @keyframes crash { 0% { transform: translateY(-10vh) translateX(0); opacity: 1; } 100% { transform: translateY(110vh) translateX(10vw); opacity: 0; } }
 
-        .message-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 40px; border-radius: 25px; max-width: 650px; margin: 30px auto; border: 1px solid rgba(255,255,255,0.2); line-height: 1.8; font-size: 1.2em; }
+        .message-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 40px; border-radius: 25px; max-width: 650px; margin: 20px auto; border: 1px solid var(--neon); line-height: 1.8; font-size: 1.2em; z-index: 2; position: relative; }
         
         .balloon { position: fixed; bottom: -120px; width: 60px; height: 85px; border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%; z-index: 999; animation: floatUp 7s ease-in forwards; }
         @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-130vh) rotate(15deg); opacity: 0; } }
 
-        #finalDeclaration { font-family: 'Playfair Display'; font-size: 4em; color: #00ffcc; text-shadow: 0 0 20px #00ffcc; }
+        /* Wall of Love Sidebar */
+        #loveSidebar { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 1001; cursor: pointer; animation: floatSide 3s ease-in-out infinite; }
+        @keyframes floatSide { 0%, 100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-55%) scale(1.1); } }
+        .love-icon { font-size: 40px; filter: drop-shadow(0 0 10px var(--neon)); }
+
+        #lovePop { background: rgba(45, 0, 77, 0.95); z-index: 5000; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 50px; }
+        .nickname { font-family: 'Dancing Script', cursive; font-size: 2em; color: var(--accent); text-shadow: 2px 2px 5px rgba(0,0,0,0.5); animation: fadeIn 0.5s forwards; opacity: 0; }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* Heart Interaction */
+        #heartPulseContainer { z-index: 2; margin: 10px auto; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; position: relative; }
+        .main-heart { font-size: 60px; cursor: pointer; animation: heartBeat 1.2s infinite; user-select: none; }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .floating-heart { position: fixed; pointer-events: none; animation: flyUp 2s ease-out forwards; z-index: 9999; }
+        @keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-250px) scale(2); opacity: 0; } }
+
+        #finalDeclaration { font-family: 'Playfair Display'; font-size: 4em; color: var(--neon); text-shadow: 0 0 20px var(--neon); }
     </style>
 </head>
 <body>
@@ -104,26 +120,43 @@
 
     <div id="mainContent" class="full-screen hidden">
         <div id="starsContainer"></div>
-        <h1 class="glow" style="font-size: 3.5em; font-family: 'Playfair Display'; position: relative; z-index: 2;">HAPPIEST BIRTHDAY <br> MERI KAAJUKATLI 🎂💖✨</h1>
-        <div class="message-box" style="position: relative; z-index: 2;">
+        
+        <div id="loveSidebar" onclick="toggleLovePop()">
+            <div class="love-icon">💖</div>
+            <p style="font-size: 0.7em; font-weight: bold; color: var(--neon);">WALL OF LOVE</p>
+        </div>
+
+        <h1 class="glow" style="font-size: 3em; font-family: 'Playfair Display'; z-index: 2; position: relative;">HAPPIEST BIRTHDAY <br> MERI KAAJUKATLI 🎂💖</h1>
+        
+        <div id="heartPulseContainer">
+            <div class="main-heart" onclick="popHeart(event)">❤️</div>
+        </div>
+        <p style="font-family: 'Caveat'; color: var(--neon); z-index: 2; position: relative; margin-top: -10px;">(Tap the heart to feel my pulse...)</p>
+
+        <div class="message-box">
             <span id="typing"></span>
         </div>
-        <button class="btn" onclick="showQuestion(1)" style="margin-top: 20px; position: relative; z-index: 2;">A Question for you... 💌</button>
+        
+        <button class="btn" onclick="showQuestion(1)" style="margin-top: 10px; z-index: 2; position: relative;">A Question for you... 💌</button>
     </div>
 
-    <div id="qPage1" class="full-screen hidden">
+    <div id="lovePop" class="full-screen hidden" onclick="toggleLovePop()">
+        <h2 style="width: 100%; font-family: 'Playfair Display'; color: white; margin-bottom: 20px;">My Beautiful...</h2>
+        </div>
+
+    <div id="qPage1" class="full-screen hidden" style="background: var(--purple-bg);">
         <div style="font-size: 2.5em; margin-bottom: 30px;">How many future years do you want to be with me? 🥺</div>
         <button class="btn" onclick="showQuestion(2)" style="font-size: 2em;">∞</button>
         <button class="btn" onclick="showQuestion(2)">INFINITE</button>
     </div>
 
-    <div id="qPage2" class="full-screen hidden">
+    <div id="qPage2" class="full-screen hidden" style="background: var(--purple-bg);">
         <div style="font-size: 2.5em; margin-bottom: 30px;">You really do mean your answer? 🧐</div>
         <button class="btn" onclick="finalDeclaration()">YES! ❤️</button>
         <button class="btn" onclick="alert('Khabardar ye option choose kiya toh 🔪');">NO</button>
     </div>
 
-    <div id="finalLovePage" class="full-screen hidden">
+    <div id="finalLovePage" class="full-screen hidden" style="background: var(--purple-bg);">
         <h1 id="finalDeclaration">I LOVE YOU DEEPIKA!<br>MY WORLD 🌍❤️</h1>
         <div style="font-size: 5em;">😘💖💐🥰💌</div>
     </div>
@@ -135,6 +168,8 @@
     const memAud = document.getElementById('memoriesMusic');
     const finAud = document.getElementById('finalMusic');
 
+    const nicknames = ["Sweetheart", "Doraemon", "Kaajukatli", "Gulab Jamun", "Sweety", "Natkhat", "My Other Half", "My Life", "Cutie pie", "My soul", "My heartbeat", "Raajkumarii", "Meri bachii", "My Moon without smudge"];
+
     function startExperience() {
         quizAud.play();
         document.getElementById('audioOverlay').classList.add('hidden');
@@ -143,7 +178,7 @@
     }
 
     function startCountdown() {
-        let time = 10; // Change to your date logic if needed
+        let time = 10; 
         const display = document.getElementById('countdownTimer');
         const interval = setInterval(() => {
             time--;
@@ -162,13 +197,11 @@
 
     function checkCipher() {
         if(document.getElementById('cipherInput').value.trim().toUpperCase() === "KARTIK") {
-            // Fade out Quiz, Start Memories
             let vol = 1.0;
             let fade = setInterval(() => {
                 if(vol > 0.1) { vol -= 0.1; quizAud.volume = vol; }
                 else { clearInterval(fade); quizAud.pause(); memAud.play(); }
             }, 100);
-
             document.getElementById('welcomeScreen').classList.add('hidden');
             document.getElementById('successScreen').classList.remove('hidden');
             setTimeout(() => {
@@ -229,9 +262,36 @@
         memAud.pause(); finAud.play();
         document.getElementById('navPopup').classList.add('hidden');
         document.getElementById('mainContent').classList.remove('hidden');
-        createStars();
-        spawnBalloons();
+        createStars(); spawnBalloons();
         setTimeout(() => { document.getElementById('mainContent').style.opacity = "1"; typeWriter(); }, 50);
+    }
+
+    function toggleLovePop() {
+        const pop = document.getElementById('lovePop');
+        if(pop.classList.contains('hidden')) {
+            pop.innerHTML = '<h2 style="width: 100%; font-family: \'Playfair Display\'; color: white; margin-bottom: 20px;">My Beautiful...</h2>';
+            nicknames.forEach((name, i) => {
+                const span = document.createElement('span');
+                span.className = 'nickname';
+                span.innerText = name + (i < nicknames.length - 1 ? " • " : "");
+                span.style.animationDelay = (i * 0.1) + 's';
+                pop.appendChild(span);
+            });
+            pop.classList.remove('hidden');
+        } else { pop.classList.add('hidden'); }
+    }
+
+    function popHeart(e) {
+        for(let i=0; i<3; i++) {
+            const h = document.createElement('div');
+            h.innerHTML = '❤️';
+            h.className = 'floating-heart';
+            h.style.left = e.clientX + (Math.random()*40-20) + 'px';
+            h.style.top = e.clientY + 'px';
+            h.style.fontSize = (Math.random()*20+20)+'px';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 2000);
+        }
     }
 
     function createStars() {
@@ -259,7 +319,7 @@
     }
 
     function typeWriter() {
-        const text = "You are not just turning 18... you are stepping into your incredible light. Happy Birthday, Soulmate! ❤️";
+        const text = "You are stepping into your incredible light. Happy Birthday, Soulmate! ❤️";
         let i = 0;
         function type() {
             if (i < text.length) {
@@ -288,4 +348,4 @@
     }
 </script>
 </body>
-                                                                                                    </html>
+            </html>
