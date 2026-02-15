@@ -192,30 +192,46 @@
         { title: "वो फूल 🌸", content: `<div class="hindi-text">दुनिया रंगीन लगी थी पहले,<br>पर सब कुछ थोड़ा फीका सा निकला,<br>उसी भीड़ में कहीं<br>मुझे एक फूल सा चेहरा दिखा।<br><br>अब बात बस उसकी…<br><br>वो फूल-रूपी, क्या कहूँ उसे,<br>आँखें जैसे मोती भी शरमा जाएँ,<br>गहराई ऐसी कि देखूँ तो<br>खुद को ही भूल जाऊँ कहीं। 🤍<br><br>उसकी हँसी… पूरी नहीं,<br>थोड़ी दिल से, थोड़ी सी धीमी,<br>पर अजीब सा सुकून दे जाती,<br>जैसे शाम की हल्की सी नीली। 🌙<br><br>बाल कभी सँवरे, कभी बिखरे,<br>पर अच्छे लगते वैसे ही,<br>जैसे हवा ने छूकर<br>अपना नाम लिख दिया हो वहीं।<br><br>हाथ… जिन्हें पकड़ने का मन करे,<br>पर डर भी लगे ज़रा,<br>कि कहीं ये सपना न हो<br>या मैं ही कुछ ज़्यादा।<br><br>वो परफेक्ट नहीं है शायद दूसरों के लिए,<br>पर मुझे तो वैसी ही सही,<br>थोड़ी सी चुप, थोड़ी सी जिद्दी,<br>और बाकी सब… बस वही। 🌸✨</div>` }
     ];
 
-    function startExperience() {
-        const target = new Date("February 16, 2026 00:00:00").getTime();
-        document.getElementById('audioOverlay').classList.add('hidden');
-        document.getElementById('dateGate').classList.remove('hidden');
-        quizAud.play();
 
-        if (!TEST_MODE && new Date().getTime() < target) {
-            updateCountdown(target);
-        } else {
-            let t = 10;
-            const iv = setInterval(() => {
-                t--; document.getElementById('countdownTimer').innerText = t + "s";
-                if(t<=0){ clearInterval(iv); document.getElementById('lockBtn').classList.add('hidden'); document.getElementById('proceedToCipher').classList.remove('hidden'); }
-            }, 1000);
-        }
-    }
+function startExperience() {
+    document.getElementById('audioOverlay').classList.add('hidden');
+    document.getElementById('dateGate').classList.remove('hidden');
+    quizAud.play();
 
-    function updateCountdown(target) {
-        setInterval(() => {
-            const diff = target - new Date().getTime();
-            if (diff <= 0) { document.getElementById('lockBtn').classList.add('hidden'); document.getElementById('proceedToCipher').classList.remove('hidden'); return; }
-            const h = Math.floor(diff/(1000*60*60)), m = Math.floor((diff%(1000*60*60))/(1000*60)), s = Math.floor((diff%(1000*60))/1000);
-            document.getElementById('countdownTimer').innerText = `${h}h ${m}m ${s}s`;
+    // FIXED LOGIC: Test Mode now takes absolute priority
+    if (TEST_MODE) {
+        let t = 10;
+        document.getElementById('countdownTimer').innerText = t + "s";
+        const iv = setInterval(() => {
+            t--; 
+            document.getElementById('countdownTimer').innerText = t + "s";
+            if(t <= 0){ 
+                clearInterval(iv); 
+                document.getElementById('lockBtn').classList.add('hidden'); 
+                document.getElementById('proceedToCipher').classList.remove('hidden'); 
+                document.getElementById('countdownTimer').innerText = "It's Time! ❤️";
+            }
         }, 1000);
+    } else {
+        const target = new Date("February 16, 2026 00:00:00").getTime();
+        updateCountdown(target);
+    }
+}
+
+function updateCountdown(target) {
+    const iv = setInterval(() => {
+        const diff = target - new Date().getTime();
+        if (diff <= 0) { 
+            clearInterval(iv);
+            document.getElementById('lockBtn').classList.add('hidden'); 
+            document.getElementById('proceedToCipher').classList.remove('hidden'); 
+            return; 
+        }
+        const h = Math.floor(diff/(1000*60*60)), 
+              m = Math.floor((diff%(1000*60*60))/(1000*60)), 
+              s = Math.floor((diff%(1000*60))/1000);
+        document.getElementById('countdownTimer').innerText = `${h}h ${m}m ${s}s`;
+    }, 1000);
     }
 
     function patienceCheck() { alert("Good Things Take Time My Love ⏳❤️"); }
